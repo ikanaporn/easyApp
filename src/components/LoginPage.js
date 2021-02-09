@@ -25,8 +25,17 @@ class LoginPage extends Component {
         
         return (
              <View style={styles.container}>
-
-               
+                <View style={{justifyContent: 'center',alignItems: 'center', marginBottom : 50 }}>
+                    <Image
+                        source={require("../../assets/img/logo.jpg")}
+                        resizeMode="contain"
+                        style={{ 
+                            width: 100,
+                            height: 100, 
+                            borderRadius: 90,
+                        }}
+                    />
+                </View>
                 <View style={styles.inputView} >
                     <TextInput  
                         
