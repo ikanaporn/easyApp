@@ -13,10 +13,10 @@ import { Provider } from 'react-redux';
 import configureStore from './src/configureStore'
 
 const store = configureStore();
-const ReduxApp =()=>(
+const EasyApp =()=>(
     <Provider store={store}>
         <App/>
     </Provider>
 )
 
-AppRegistry.registerComponent('easyApp', () => ReduxApp);
+AppRegistry.registerComponent('easyApp', () => EasyApp);
