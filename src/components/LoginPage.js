@@ -8,7 +8,6 @@ import { StyleSheet,
 } 
 from 'react-native';
 
-//import { Actions } from 'react-native-mobx/index';
 import {NavigationName} from '../constants';
 
 
@@ -51,10 +50,10 @@ class LoginPage extends Component {
                 </TouchableOpacity>
             
                 <TouchableOpacity style={styles.loginBtn}
-                // onPress={() => {
-                //     this.props.navigation.navigate(NavigationName.MenuPage, {
-                //     });
-                // }}
+                onPress={() => {
+                    this.props.navigation.navigate(NavigationName.HomePage, {
+                    });
+                }}
                 >
                     <Text style={styles.loginText}>LOGIN</Text>
                     
@@ -111,15 +110,15 @@ const styles = StyleSheet.create({
     signInText: {
         fontWeight:"bold",
         fontSize: 15,
-        color: '#79a3b1',
+        color: '#fa8072',
     },
     forgot:{
-        color:"#456268",
+        color:"#fa8072",
         fontSize:14
     },
     loginBtn:{
         width:"80%",
-        backgroundColor:"#79a3b1",
+        backgroundColor:"#fa8072",
         borderRadius:25,
         height:50,
         alignItems:"center",

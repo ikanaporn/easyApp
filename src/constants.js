@@ -10,5 +10,5 @@ export const NavigationName = {
     //go to main.js look at name 
 
     // MenuPage: "MenuPage",
-    // HomePage: "HomePage",
+    HomePage: "HomePage",
 }
