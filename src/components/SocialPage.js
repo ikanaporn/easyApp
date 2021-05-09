@@ -13,43 +13,26 @@ import {Fab, Icon} from 'native-base';
 import {NavigationName} from '../constants';
 
 
-class HomePage extends Component {
-    state = {
-        email:"",
-        password:""
-    }
-    constructor(props) {
-        super(props);
-       
-    }
+class SocialPage extends Component {
    
     render() {
         
         return (
              <View style={styles.container}>
-                 <Text>HomePage</Text>
-                    {/* <Fab
-                        direction="up"
-                        containerStyle={{}}
-                        style={{ backgroundColor: '#fa8072' }}
-                        position="bottomRight"
-                        //onPress={onPress}
-                    >
-                        <Icon name="add" />
-                    </Fab> */}
+                <Text>SocialPage</Text>
                 <TouchableOpacity
                     onPress={() => {
-                        this.props.navigation.navigate(NavigationName.RegisterPage, {});
+                        this.props.navigation.navigate(NavigationName.HappyPage, {});
                     }}
                 >
                     <Text style={styles.signInText}>SIGN UP</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
-                        this.props.navigation.navigate(NavigationName.LoginPage, {});
+                        this.props.navigation.navigate(NavigationName.SadPage, {});
                     }}
                 >
-                    <Text style={styles.signInText}>LOGIN</Text>
+                    <Text style={styles.signInText}>SIGN UP</Text>
                 </TouchableOpacity>
              </View>
         );
@@ -85,4 +68,4 @@ const styles = StyleSheet.create({
     
 })
 
-export default HomePage
+export default SocialPage

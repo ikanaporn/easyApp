@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import fetchReducer from './fetchReducer';
-import InfomationInitial from './InfomationInitial'
+import InfomationInitial from './InfomationInitial';
 
 import {
     INFO_DATA,

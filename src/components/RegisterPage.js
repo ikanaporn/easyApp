@@ -11,19 +11,21 @@ from 'react-native';
 import axios from 'axios';
 import {NavigationName} from '../constants';
 
-class LoginPage extends Component {
-    constructor(props) {
-        super(props);
-    }
+class RegisterPage extends Component {
     state = {
-        username:"",
-        password:""
+        email: "",
+        username: "",
+        password: "",
+        con_password: "",
     }
-    user_login = () => {
+
+    user_register = () => {
         console.log(this.state)
         let details = {
+            'email' : this.state.email,
             'username' : this.state.username,
             'password' : this.state.password,
+            'con_password' : this.state.con_password,
         };
         let formBody = [];
         for (let property in details) {
@@ -32,75 +34,71 @@ class LoginPage extends Component {
             formBody.push(encodedKey + "=" + encodedValue);
         }
         formBody = formBody.join("&");
-        const url='http://3685db6d73f3.ngrok.io/login/' 
+        const url='http://3685db6d73f3.ngrok.io/register/' 
         axios.post(`${url}`, formBody, {
             headers: {
                 'content-type': 'application/x-www-form-urlencoded;charset-UTF-8'
             }
         }).then(res => {
-            if (res.data['status']) {
-                this.props.navigation.navigate(NavigationName.FirstPage,{});
+            if (res.data['register']) {
+                Alert.alert(res.data['description']);
+                this.props.navigation.navigate(NavigationName.LoginPage);
             }
             else {
-                Alert.alert("Username or Password fail");
+                Alert.alert(res.data['description']);
             }
         })
+        
     }
 
     render() {
         
         return (
              <View style={styles.container}>
-                <View style={{justifyContent: 'center',alignItems: 'center', marginBottom : 50 }}>
-                    <Image
-                        source={require("../../assets/img/logo.jpg")}
-                        resizeMode="contain"
-                        style={{ 
-                            width: 100,
-                            height: 100, 
-                            borderRadius: 90,
-                        }}
-                    />
-                </View>
                 <View style={styles.inputView} >
                     <TextInput  
                         
                         style={styles.inputText}
-                        placeholder="Username" 
-                        placeholderTextColor="#D5D8DC "
+                        placeholder="email" 
+                        placeholderTextColor="#D5D8DC"
+                        onChangeText={text => this.setState({email:text})}
+                    />
+                </View>
+                <View style={styles.inputView} >
+                    <TextInput  
+                        style={styles.inputText}
+                        placeholder="username" 
+                        placeholderTextColor="#D5D8DC"
                         onChangeText={text => this.setState({username:text})}
                     />
                 </View>
                 <View style={styles.inputView} >
                     <TextInput  
                         style={styles.inputText}
-                        placeholder="Password..." 
-                        placeholderTextColor="#D5D8DC "
+                        placeholder="password" 
+                        placeholderTextColor="#D5D8DC"
                         secureTextEntry={true}
                         onChangeText={text => this.setState({password:text})}
                     />
                 </View>
-                {/* <TouchableOpacity>
-                    <Text style={styles.forgot}>Forgot Password ?</Text>
-                </TouchableOpacity> */}
+                <View style={styles.inputView} >
+                    <TextInput  
+                        style={styles.inputText}
+                        placeholder="confirm password" 
+                        placeholderTextColor="#D5D8DC"
+                        secureTextEntry={true}
+                        onChangeText={text => this.setState({con_password:text})}
+                    />
+                </View>
             
                 <TouchableOpacity style={styles.loginBtn}
                     onPress={() => {
-                        this.user_login()
+                        this.user_register()
                     }}
                 >
-                    <Text style={styles.loginText}>LOGIN</Text>
+                    <Text style={styles.loginText}>SIGN UP</Text>
                     
                 </TouchableOpacity>
-
-                {/* <TouchableOpacity
-                    onPress={() => {
-                        this.props.navigation.navigate(NavigationName.HomePage, {
-                        });
-                    }}
-                >
-                    <Text style={styles.signInText}>Signup</Text>
-                </TouchableOpacity> */}
              </View>
         );
     }
@@ -162,4 +160,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default LoginPage
+export default RegisterPage
