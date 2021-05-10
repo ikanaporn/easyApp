@@ -26,7 +26,7 @@ class FirstPage extends Component {
     user_logout = () => {
         // this.state.token = tk
         // console.log(this.state.token)
-        const url='http://3685db6d73f3.ngrok.io/logout/' 
+        const url='http://d0fd5b5e7caf.ngrok.io/logout/' 
         axios.post(`${url}`,{
             headers: {
                 'content-type': 'application/x-www-form-urlencoded;charset-UTF-8',
@@ -47,21 +47,14 @@ class FirstPage extends Component {
                 <Text>FirstPage</Text>
                 <TouchableOpacity style={styles.loginBtn}
                     onPress={() => {
-                        this.props.navigation.navigate(NavigationName.EmotionPage, {});
-                    }}
-                >
-                    <Text style={styles.loginText}>EMOTION</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.loginBtn}
-                    onPress={() => {
-                        this.props.navigation.navigate(NavigationName.HappyDiaryPage, {});
+                        this.props.navigation.navigate(NavigationName.HappyDiaryPage, {refresh:'False'});
                     }}
                 >
                     <Text style={styles.loginText}>HAPPY DIARY</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.loginBtn}
                     onPress={() => {
-                        this.props.navigation.navigate(NavigationName.SadDiaryPage, {});
+                        this.props.navigation.navigate(NavigationName.SadDiaryPage, {refresh:'False'});
                     }}
                 >
                     <Text style={styles.loginText}>SAD DIARY</Text>

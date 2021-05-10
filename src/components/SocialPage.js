@@ -22,17 +22,24 @@ class SocialPage extends Component {
                 <Text>SocialPage</Text>
                 <TouchableOpacity
                     onPress={() => {
+                        this.props.navigation.navigate(NavigationName.FirstPage, {});
+                    }}
+                >
+                    <Text style={styles.signInText}>BACK</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
                         this.props.navigation.navigate(NavigationName.HappyPage, {});
                     }}
                 >
-                    <Text style={styles.signInText}>SIGN UP</Text>
+                    <Text style={styles.signInText}>HAPPY</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
                         this.props.navigation.navigate(NavigationName.SadPage, {});
                     }}
                 >
-                    <Text style={styles.signInText}>SIGN UP</Text>
+                    <Text style={styles.signInText}>SAD</Text>
                 </TouchableOpacity>
              </View>
         );

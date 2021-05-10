@@ -20,8 +20,9 @@ class AddDiaryPage extends Component {
         details : "",
     }
     
-    add_story = (tp) => {
+    add_story = (tp,page) => {
         console.log(this.state)
+        console.log("in tpdiary")
         console.log(tp)
         let data = {
             'title' : this.state.title,
@@ -36,14 +37,17 @@ class AddDiaryPage extends Component {
             formBody.push(encodedKey + "=" + encodedValue);
         }
         formBody = formBody.join("&");
-        const url='http://3685db6d73f3.ngrok.io/addstory/' 
+        const url='http://d0fd5b5e7caf.ngrok.io/addstory/' 
         axios.post(`${url}`, formBody, {
             headers: {
                 'content-type': 'application/x-www-form-urlencoded;charset-UTF-8'
             }
         }).then(res => {
-            if (res.data['stuts']) {
-                this.props.navigation.navigate(NavigationName.HappyDiaryPage,{});
+            if (res.data['status']){
+                console.log(res.data['data'])
+                // console.log(res.data[0].id)
+                console.log(res.data['data'][0].id)
+                this.get_onestory(res.data['data'][0].id,page)
             }
             else {
                 Alert.alert(res.data['description']);
@@ -51,8 +55,21 @@ class AddDiaryPage extends Component {
         })
     }
 
+    get_onestory = (id,page) => {
+        const url='http://d0fd5b5e7caf.ngrok.io/onestory/?id=' + id 
+        console.log(url)
+        axios.get(`${url}`, {})
+        .then(res => {
+            console.log(res.data['data'])
+            this.props.navigation.navigate(NavigationName.DetailPage, {item:res.data['data'],own:'false',page:page});
+        }) 
+        .catch(error => {
+        this.setState({ error, loading : false });
+        })    
+    };
+
     render() {
-        const {tpdiary} = this.props.route.params;
+        const {tpdiary,page} = this.props.route.params;
         // const [selectedValue, setSelectedValue] = useState("False");
         return (
              <View style={styles.container}>
@@ -72,7 +89,7 @@ class AddDiaryPage extends Component {
                     <TextInput  
                         style={styles.inputText}
                         placeholder="Title" 
-                        placeholderTextColor="#D5D8DC"
+                        placeholderTextColor="#D5D8DC "
                         onChangeText={text => this.setState({title:text})}
                     />
                 </View>
@@ -80,7 +97,7 @@ class AddDiaryPage extends Component {
                     <TextInput  
                         style={styles.inputText}
                         placeholder="Detail" 
-                        placeholderTextColor="#D5D8DC"
+                        placeholderTextColor="#D5D8DC "
                         onChangeText={text => this.setState({details:text})}
                     />
                 </View>
@@ -92,10 +109,9 @@ class AddDiaryPage extends Component {
                     <Picker.Item label="Private" value="False" />
                     <Picker.Item label="Public" value="True" />
                 </Picker> */}
-
                 <TouchableOpacity style={styles.loginBtn}
                     onPress={() => {
-                        this.add_story(tpdiary)
+                        this.add_story(tpdiary,page)
                     }}
                 >
                     <Text style={styles.loginText}>Submit</Text>
@@ -117,8 +133,7 @@ const styles = StyleSheet.create({
         fontSize:50,
         color:"#79a3b1",
         marginBottom:40,
-        justifyContent: 'center'
-
+        justifyContent: 'center',
     },
     inputView:{
         width:"80%",
@@ -127,13 +142,11 @@ const styles = StyleSheet.create({
         height:50,
         marginBottom:20,
         justifyContent:"center",
-        padding:20,
-    
-        
+        padding:20,  
     },
     inputText:{
         height:50,
-        color:"#456268"
+        color:"#456268",
     },
     loginText: {
         fontWeight:"bold",
@@ -147,7 +160,7 @@ const styles = StyleSheet.create({
     },
     forgot:{
         color:"#fa8072",
-        fontSize:14
+        fontSize:14,
     },
     loginBtn:{
         width:"80%",
@@ -157,7 +170,7 @@ const styles = StyleSheet.create({
         alignItems:"center",
         justifyContent:"center",
         marginTop:40,
-        marginBottom:10
+        marginBottom:10,
     },
 })
 

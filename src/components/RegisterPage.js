@@ -34,7 +34,7 @@ class RegisterPage extends Component {
             formBody.push(encodedKey + "=" + encodedValue);
         }
         formBody = formBody.join("&");
-        const url='http://3685db6d73f3.ngrok.io/register/' 
+        const url='http://d0fd5b5e7caf.ngrok.io/register/' 
         axios.post(`${url}`, formBody, {
             headers: {
                 'content-type': 'application/x-www-form-urlencoded;charset-UTF-8'
@@ -60,7 +60,7 @@ class RegisterPage extends Component {
                         
                         style={styles.inputText}
                         placeholder="email" 
-                        placeholderTextColor="#D5D8DC"
+                        placeholderTextColor="#D5D8DC "
                         onChangeText={text => this.setState({email:text})}
                     />
                 </View>
@@ -68,7 +68,7 @@ class RegisterPage extends Component {
                     <TextInput  
                         style={styles.inputText}
                         placeholder="username" 
-                        placeholderTextColor="#D5D8DC"
+                        placeholderTextColor="#D5D8DC "
                         onChangeText={text => this.setState({username:text})}
                     />
                 </View>
@@ -76,7 +76,7 @@ class RegisterPage extends Component {
                     <TextInput  
                         style={styles.inputText}
                         placeholder="password" 
-                        placeholderTextColor="#D5D8DC"
+                        placeholderTextColor="#D5D8DC "
                         secureTextEntry={true}
                         onChangeText={text => this.setState({password:text})}
                     />
@@ -85,7 +85,7 @@ class RegisterPage extends Component {
                     <TextInput  
                         style={styles.inputText}
                         placeholder="confirm password" 
-                        placeholderTextColor="#D5D8DC"
+                        placeholderTextColor="#D5D8DC "
                         secureTextEntry={true}
                         onChangeText={text => this.setState({con_password:text})}
                     />

@@ -11,49 +11,34 @@ import {Fab, Icon} from 'native-base';
 import axios from 'axios';
 //import { Actions } from 'react-native-mobx/index';
 import {NavigationName} from '../constants';
-import {Card} from 'react-native-paper';
-
+// import {Card} from 'react-native-paper';
+// import {best_url} from './database/path_url';
 
 class HappyDiaryPage extends Component {
     constructor(props) {
         super(props);
     
         this.state  = {
-          loading: false,
-          data: [],
-          error: null,
-          refreshing: false,
+            data: [],
+            loading: false,
+            error: null,
+            refreshing: false,
         }
-      }
+    }
     
     componentDidMount() {
-    this.fetchDataFromApi();
-
+        this.fetchDataFromApi();
     }
 
     fetchDataFromApi = ()  => {
-        const url = "http://3685db6d73f3.ngrok.io/mystory/";
-
-        this.setState({ loading: true });
-        let data = {
-            'type_h' : 'True',
-        };
-        let formBody = [];
-        for (let property in data) {
-            let encodedKey = encodeURIComponent(property);
-            let encodedValue = encodeURIComponent(data[property]);
-            formBody.push(encodedKey + "=" + encodedValue);
-        }
-        formBody = formBody.join("&");
-        axios.get(`${url}`, formBody , {
-            headers: {
-                'content-type': 'application/x-www-form-urlencoded;charset-UTF-8'
-            }
-        })
-        .then(res => res.json())
+        console.log("i'm in fetch")
+        const url='http://d0fd5b5e7caf.ngrok.io/mystory/?type_h=True' 
+        axios.get(`${url}`, {})
         .then(res => {
+            console.log("in res")
+            console.log(res.data['status']);
             this.setState({
-                data: res,
+                data: res.data['data'],
                 error: null,
                 loading: false,
                 refreshing: false
@@ -74,16 +59,30 @@ class HappyDiaryPage extends Component {
           }
         );
     };
-    renderData = (item) => {
-        return(
-            <Card>
-                <Text>{item.title}</Text>
-                <Text>{item.detail}</Text>
-            </Card>
-        )
-    }
+
+    // renderData = (item) => {
+    //     return(
+    //         <Card>
+    //             <Text>{item.title}</Text>
+    //             <Text>{item.detail}</Text>
+    //         </Card>
+    //     )
+    // };
+
+    get_onestory = (id) => {
+        const url='http://d0fd5b5e7caf.ngrok.io/onestory/?id=' + id 
+        console.log(url)
+        axios.get(`${url}`, {})
+        .then(res => {
+            this.props.navigation.navigate(NavigationName.DetailPage, {item:res.data['data'],own:'true',page:'HappyDiaryPage'});
+        }) 
+        .catch(error => {
+        this.setState({ error, loading : false });
+        })    
+    };
+
     render() {
-        // const mydata = this.loaddata();
+        // const {refresh} = this.props.route.params;
         return (
             <View style={styles.container}>
                 <Text>HappyDiaryPage</Text>
@@ -98,51 +97,25 @@ class HappyDiaryPage extends Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
-                        this.props.navigation.navigate(NavigationName.AddDiaryPage, {tpdiary:'True'});
+                        this.props.navigation.navigate(NavigationName.AddDiaryPage, {tpdiary:'True',page:'HappyDiaryPage'});
                         
                     }}
                 >
                     <Text style={styles.signInText}>ADD HAPPY STORY</Text>
                 </TouchableOpacity>
-                <FlatList
-                    data={this.state.data}
-                    // renderItem={({ item }) => {
-                    //     // <ListItem
-                    //     // // onPress={() => this.props.navigation.navigate('Detail',
-                    //     // // {name: `${item.name}`, menu: `${item.menu}`,
-                    //     // // img: `${this.state.base_url}${item.photo}`,
-                    //     // // address: `${item.address}`})}
-                    //     // title={`${item.title}`}
-                    //     // titleStyle={{ fontSize: 16}}
-                    //     // titleContainerStyle = {{ marginLeft: 120 }}
-                    //     // subtitle={<View style={styles.subtitleView}>
-                    //     // <Text style={styles.menuText}>{item.detail}</Text>
-                    //     // </View>}
-                    //     // containerStyle={{ borderBottomWidth: 0, marginBottom: 20 }}
-                    //     // />
-                    //     // return renderData(item)
-                    // }}
-                    renderItem={({ item }) => (
-                        <ListItem
-                        //   onPress={() => this.props.navigation.navigate('Detail',
-                        //   {name: `${item.name}`, menu: `${item.menu}`,
-                        //   img: `${this.state.base_url}${item.photo}`,
-                        //   address: `${item.address}`})}
-                          title={`${item.title}`}
-                          titleStyle={{ fontSize: 16}}
-                          titleContainerStyle = {{ marginLeft: 120 }}
-                          subtitle={<View style={styles.subtitleView}>
-                            <Text style={styles.menuText}>{item.detail}</Text>
-                            </View>}
-                          containerStyle={{ borderBottomWidth: 0, marginBottom: 20 }}
-                        />
-                    )}
-                    keyExtractor={item => item.id}
-                    ItemSeparatorComponent={this.renderSeparator}
-                    ListHeaderComponent={this.renderHeader}
-                    onRefresh={this.handleRefresh}
-                    refreshing={this.state.refreshing}
-                    />
+                {this.state.data.map((item) => {
+                    return (
+                        <View>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    this.get_onestory(item.id)
+                                }}
+                            >
+                                <Text style={styles.signInText}>{item.title}</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )
+                })}
              </View>
         );
     }
@@ -183,6 +156,16 @@ const styles = StyleSheet.create({
     menuText: {
         paddingLeft: 10,
         color: 'grey'
+    },
+    loginBtn:{
+        width:"80%",
+        backgroundColor:"#fa8072",
+        borderRadius:25,
+        height:50,
+        alignItems:"center",
+        justifyContent:"center",
+        marginTop:40,
+        marginBottom:10
     },
 })
 

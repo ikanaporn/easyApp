@@ -7,20 +7,95 @@ import { StyleSheet,
     Image 
 } 
 from 'react-native';
-import {Fab, Icon} from 'native-base';
-
+import axios from 'axios';
 //import { Actions } from 'react-native-mobx/index';
 import {NavigationName} from '../constants';
 
 
 class SadPage extends Component {
-   
+
+    constructor(props) {
+        super(props);
+    
+        this.state  = {
+            data: [],
+            loading: false,
+            error: null,
+            refreshing: false,
+        }
+    }
+
+    componentDidMount() {
+        this.handleRefresh();
+    }
+
+    fetchDataFromApi = ()  => {
+        console.log("i'm in fetch")
+        const url='http://d0fd5b5e7caf.ngrok.io/getallstory/?type_h=False&status_p=False' 
+        axios.get(`${url}`, {})
+        .then(res => {
+            console.log("in res")
+            this.setState({
+                data: res.data['data'],
+                error: null,
+                loading: false,
+                refreshing: false
+            });
+        }) 
+        .catch(error => {
+        this.setState({ error, loading : false });
+        })
+    };
+
+    handleRefresh = () => {
+        this.setState(
+          {
+            refreshing: true
+          },
+          () => {
+            this.fetchDataFromApi();
+          }
+        );
+    };
+
+    get_onestory = (id) => {
+        const url='http://d0fd5b5e7caf.ngrok.io/onestory/?id=' + id 
+        console.log(url)
+        axios.get(`${url}`, {})
+        .then(res => {
+            console.log(res.data['data'])
+            this.props.navigation.navigate(NavigationName.DetailPage, {item:res.data['data'],own:'false',page:'SadPage'});
+        }) 
+        .catch(error => {
+        this.setState({ error, loading : false });
+        })    
+    };
+
     render() {
         
         return (
              <View style={styles.container}>
                 <Text>SadPage</Text>
-                
+                <TouchableOpacity style={styles.loginBtn}
+                    onPress={() => {
+                        this.props.navigation.navigate(NavigationName.SocialPage, {});
+                    }}
+                >
+                    <Text style={styles.loginText}>BACK</Text>
+                </TouchableOpacity>
+                {this.state.data.map((item) => {
+                    return (
+                        <View>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    this.get_onestory(item.id)
+                                }}
+                            >
+                                <Text style={styles.signInText}>{item.title}</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )
+                })}
              </View>
         );
     }
@@ -52,7 +127,16 @@ const styles = StyleSheet.create({
         color:"#456268",
         fontSize:14
     },
-    
+    loginBtn:{
+        width:"80%",
+        backgroundColor:"#fa8072",
+        borderRadius:25,
+        height:50,
+        alignItems:"center",
+        justifyContent:"center",
+        marginTop:40,
+        marginBottom:10
+    },
 })
 
 export default SadPage

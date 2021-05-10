@@ -10,6 +10,7 @@ import { StyleSheet,
 from 'react-native';
 import axios from 'axios';
 import {NavigationName} from '../constants';
+// import {best_url} from 'url/path_url';
 
 class LoginPage extends Component {
     constructor(props) {
@@ -32,7 +33,7 @@ class LoginPage extends Component {
             formBody.push(encodedKey + "=" + encodedValue);
         }
         formBody = formBody.join("&");
-        const url='http://3685db6d73f3.ngrok.io/login/' 
+        const url= 'http://d0fd5b5e7caf.ngrok.io/login/' 
         axios.post(`${url}`, formBody, {
             headers: {
                 'content-type': 'application/x-www-form-urlencoded;charset-UTF-8'
