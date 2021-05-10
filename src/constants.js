@@ -11,4 +11,15 @@ export const NavigationName = {
 
     // MenuPage: "MenuPage",
     HomePage: "HomePage",
+    LoginPage: "LoginPage",
+    RegisterPage: "RegisterPage",
+    FirstPage: "FirstPage",
+    HappyDiaryPage: "HappyDiaryPage",
+    SadDiaryPage: "SadDiaryPage",
+    SettingPage: "SettingPage",
+    SocialPage: "SocialPage",
+    AddDiaryPage: "AddDiaryPage",
+    DetailPage: "DetailPage",
+    HappyPage: "HappyPage",
+    SadPage: "SadPage",
 }

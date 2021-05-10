@@ -63,8 +63,21 @@ class HomePage extends Component {
                         //onPress={onPress}
                     >
                         <Icon name="add" />
-                    </Fab>
-              
+                    </Fab> */}
+                <TouchableOpacity
+                    onPress={() => {
+                        this.props.navigation.navigate(NavigationName.RegisterPage, {});
+                    }}
+                >
+                    <Text style={styles.signInText}>SIGN UP</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
+                        this.props.navigation.navigate(NavigationName.LoginPage, {});
+                    }}
+                >
+                    <Text style={styles.signInText}>LOGIN</Text>
+                </TouchableOpacity>
              </View>
         );
     }

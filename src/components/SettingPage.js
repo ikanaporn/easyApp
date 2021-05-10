@@ -8,23 +8,48 @@ import { StyleSheet,
     Alert
 } 
 from 'react-native';
+import {Fab, Icon} from 'native-base';
 import axios from 'axios';
+//import { Actions } from 'react-native-mobx/index';
 import {NavigationName} from '../constants';
-// import {best_url} from 'url/path_url';
 
-class LoginPage extends Component {
+
+class SettingPage extends Component {
+
     constructor(props) {
         super(props);
+    
+        this.state  = {
+            username : '',
+            email : '',
+            set : false,
+        }
     }
-    state = {
-        username:"",
-        password:""
+    get_user = () => {
+        const url= 'http://d0fd5b5e7caf.ngrok.io/profile/' 
+        axios.get(`${url}`, {}).then(res => {
+            console.log(res.data['user'])
+            if (res.data['status']) {
+                this.setState({
+                    username : res.data['user'],
+                    email : res.data['email'],
+                    set : true,
+                });
+            }
+            console.log(this.state)
+        })
     }
-    user_login = () => {
+
+    user(){
+        this.get_user()
+    }
+
+    set_user = () => {
+        const url= 'http://d0fd5b5e7caf.ngrok.io/profile/' 
         console.log(this.state)
         let details = {
             'username' : this.state.username,
-            'password' : this.state.password,
+            'email' : this.state.email,
         };
         let formBody = [];
         for (let property in details) {
@@ -33,75 +58,58 @@ class LoginPage extends Component {
             formBody.push(encodedKey + "=" + encodedValue);
         }
         formBody = formBody.join("&");
-        const url= 'http://d0fd5b5e7caf.ngrok.io/login/' 
-        axios.post(`${url}`, formBody, {
+        axios.post(`${url}`, formBody ,{
             headers: {
                 'content-type': 'application/x-www-form-urlencoded;charset-UTF-8'
             }
         }).then(res => {
             if (res.data['status']) {
-                this.props.navigation.navigate(NavigationName.FirstPage,{});
+                Alert.alert("Edit Profile Success");
             }
             else {
-                Alert.alert("Username or Password fail");
+                Alert.alert("Edit Profile Fail");
             }
         })
     }
-
     render() {
-        
+        if (!this.state.set)  {
+            this.user()
+        }
         return (
              <View style={styles.container}>
-                <View style={{justifyContent: 'center',alignItems: 'center', marginBottom : 50 }}>
-                    <Image
-                        source={require("../../assets/img/logo.jpg")}
-                        resizeMode="contain"
-                        style={{ 
-                            width: 100,
-                            height: 100, 
-                            borderRadius: 90,
-                        }}
-                    />
-                </View>
+                <Text>SettingPage</Text>
+                
+                <TouchableOpacity style={styles.loginBtn}
+                    onPress={() => {
+                        this.props.navigation.navigate(NavigationName.FirstPage, {});
+                    }}
+                >
+                    <Text style={styles.signInText}>BACK</Text>
+                </TouchableOpacity>
                 <View style={styles.inputView} >
                     <TextInput  
-                        
                         style={styles.inputText}
-                        placeholder="Username" 
-                        placeholderTextColor="#D5D8DC "
+                        value={this.state.username}
+                        placeholderTextColor="#000000"
                         onChangeText={text => this.setState({username:text})}
                     />
                 </View>
                 <View style={styles.inputView} >
                     <TextInput  
                         style={styles.inputText}
-                        placeholder="Password..." 
-                        placeholderTextColor="#D5D8DC "
-                        secureTextEntry={true}
-                        onChangeText={text => this.setState({password:text})}
+                        value={this.state.email}
+                        placeholderTextColor="#000000"
+                        onChangeText={text => this.setState({email:text})}
                     />
                 </View>
-                {/* <TouchableOpacity>
-                    <Text style={styles.forgot}>Forgot Password ?</Text>
-                </TouchableOpacity> */}
-            
                 <TouchableOpacity style={styles.loginBtn}
                     onPress={() => {
-                        this.user_login()
+                        this.set_user()
                     }}
                 >
-                    <Text style={styles.loginText}>LOGIN</Text>
+                    <Text style={styles.loginText}>SUBMIT</Text>
                     
                 </TouchableOpacity>
-
-                {/* <TouchableOpacity
-                    onPress={() => {
-                        this.props.navigation.navigate(NavigationName.HomePage, {
-                        });
-                    }}
-                >
-                    <Text style={styles.signInText}>Signup</Text>
-                </TouchableOpacity> */}
              </View>
         );
     }
@@ -145,7 +153,7 @@ const styles = StyleSheet.create({
     signInText: {
         fontWeight:"bold",
         fontSize: 15,
-        color: '#fa8072',
+        color: '#ffffff',
     },
     forgot:{
         color:"#fa8072",
@@ -163,4 +171,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default LoginPage
+export default SettingPage
