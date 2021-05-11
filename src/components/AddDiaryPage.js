@@ -18,7 +18,30 @@ class AddDiaryPage extends Component {
     state = {
         title : "",
         details : "",
+        isPrivate : false,
+        isPublic : false,
     }
+
+    changeStatusShared = (choice) => {
+        if (choice == 1) {
+            this.setState({
+                isPrivate: true,
+                isPublic: false
+            })
+        } else if (choice == 2) {
+            this.setState({
+                isPrivate: false,
+                isPublic: true
+            })
+        }
+    }
+
+    // selectedStatus = (choice) => {
+    //     this.setState({
+    //         isPrivate: true,
+    //         isPublic: false
+    //     })
+    // }
     
     add_story = (tp,page) => {
         console.log(this.state)
@@ -109,6 +132,35 @@ class AddDiaryPage extends Component {
                     <Picker.Item label="Private" value="False" />
                     <Picker.Item label="Public" value="True" />
                 </Picker> */}
+
+                <View
+                 style={
+                     this.state.isPrivate == true 
+                     ? styles.buttonChoiceChosen 
+                     : styles.buttonChoiceNoChosen
+                 }>
+                <TouchableOpacity
+                    onPress={() => this.changeStatusShared(1)}
+                    underlayColor="#C7C7CC"
+                    >
+                    <Text>{"   "}Private</Text>
+                </TouchableOpacity>
+                </View>
+
+                <View
+                 style={
+                     this.state.isPrivate == false
+                     ? styles.buttonChoiceChosen 
+                     : styles.buttonChoiceNoChosen
+                 }>
+                <TouchableOpacity
+                    onPress={() => this.changeStatusShared(2)}
+                    underlayColor="#C7C7CC"
+                    >
+                    <Text>{"   "}Public</Text>
+                </TouchableOpacity>
+                </View>
+
                 <TouchableOpacity style={styles.loginBtn}
                     onPress={() => {
                         this.add_story(tpdiary,page)
@@ -116,6 +168,7 @@ class AddDiaryPage extends Component {
                 >
                     <Text style={styles.loginText}>Submit</Text>
                 </TouchableOpacity>
+
              </View>
         );
     }
@@ -172,6 +225,26 @@ const styles = StyleSheet.create({
         marginTop:40,
         marginBottom:10,
     },
+    buttonChoiceChosen: {
+        backgroundColor: "#66918F",
+        borderColor: "#66918F",
+        borderWidth: 1,
+        borderRadius: 1,
+        marginBottom: 10,
+        width: "100%",
+        height: 52,
+        justifyContent: "space-around",
+      },
+      buttonChoiceNoChosen: {
+        backgroundColor: "#F0F0F0",
+        borderColor: "#F0F0F0",
+        borderWidth: 1,
+        borderRadius: 1,
+        marginBottom: 10,
+        width: "100%",
+        height: 52,
+        justifyContent: "space-around",
+      },
 })
 
 export default AddDiaryPage
