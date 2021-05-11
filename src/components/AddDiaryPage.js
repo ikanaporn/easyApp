@@ -1,34 +1,33 @@
-import React,{ Component, useState } from 'react';
+import React,{ Component } from 'react';
 import { StyleSheet, 
     Text, 
     View, 
     TextInput,
     TouchableOpacity,
+    // Picker,
 } 
 from 'react-native';
-import {Picker} from '@react-native-picker/picker';
-import {Fab, Icon, Title} from 'native-base';
 import axios from 'axios';
-//import { Actions } from 'react-native-mobx/index';
 import {NavigationName} from '../constants';
 
-
 class AddDiaryPage extends Component {
-   
-    state = {
-        title : "",
-        details : "",
-    }
     
+    constructor(props){
+        super(props);
+
+        this.state = {
+            title : "",
+            details : "",
+            status_p : 'True',
+        }
+    }
+
     add_story = (tp,page) => {
-        console.log(this.state)
-        console.log("in tpdiary")
-        console.log(tp)
         let data = {
             'title' : this.state.title,
             'type_h' : tp,
             'detail' : this.state.details,
-            'status_p' : 'True',
+            'status_p' : this.state.status_p,
         };
         let formBody = [];
         for (let property in data) {
@@ -37,16 +36,13 @@ class AddDiaryPage extends Component {
             formBody.push(encodedKey + "=" + encodedValue);
         }
         formBody = formBody.join("&");
-        const url='http://d0fd5b5e7caf.ngrok.io/addstory/' 
+        const url='http://3afb1367df48.ngrok.io/addstory/' 
         axios.post(`${url}`, formBody, {
             headers: {
                 'content-type': 'application/x-www-form-urlencoded;charset-UTF-8'
             }
         }).then(res => {
             if (res.data['status']){
-                console.log(res.data['data'])
-                // console.log(res.data[0].id)
-                console.log(res.data['data'][0].id)
                 this.get_onestory(res.data['data'][0].id,page)
             }
             else {
@@ -56,11 +52,9 @@ class AddDiaryPage extends Component {
     }
 
     get_onestory = (id,page) => {
-        const url='http://d0fd5b5e7caf.ngrok.io/onestory/?id=' + id 
-        console.log(url)
+        const url='http://3afb1367df48.ngrok.io/onestory/?id=' + id 
         axios.get(`${url}`, {})
         .then(res => {
-            console.log(res.data['data'])
             this.props.navigation.navigate(NavigationName.DetailPage, {item:res.data['data'],own:'false',page:page});
         }) 
         .catch(error => {
@@ -70,7 +64,6 @@ class AddDiaryPage extends Component {
 
     render() {
         const {tpdiary,page} = this.props.route.params;
-        // const [selectedValue, setSelectedValue] = useState("False");
         return (
              <View style={styles.container}>
 
@@ -83,7 +76,16 @@ class AddDiaryPage extends Component {
                     }}
                 >
                     <Text style={styles.loginText}>BACK</Text>
-                    
+
+                {/* <Picker
+                    style={{width:'100%'}}
+                    selectedValue={this.state.status_p}
+                    onValueChange={(itemValue,itemIndex) => this.setState({status_p:itemValue})}
+                >
+                    <Picker.Item label="Private" value="True"/>
+                    <Picker.Item label="Public" value="False"/>
+                </Picker> */}
+
                 </TouchableOpacity>
                 <View style={styles.inputView} >
                     <TextInput  
@@ -101,14 +103,6 @@ class AddDiaryPage extends Component {
                         onChangeText={text => this.setState({details:text})}
                     />
                 </View>
-                {/* <Picker
-                    selectedValue={selectedValue}
-                    style={{ height: 50, width: 150 }}
-                    onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-                >
-                    <Picker.Item label="Private" value="False" />
-                    <Picker.Item label="Public" value="True" />
-                </Picker> */}
                 <TouchableOpacity style={styles.loginBtn}
                     onPress={() => {
                         this.add_story(tpdiary,page)

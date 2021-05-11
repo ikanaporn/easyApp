@@ -1,18 +1,12 @@
-import React,{ Component, useState,useEffect } from 'react';
+import React,{ Component } from 'react';
 import { StyleSheet, 
     Text, 
     View, 
-    TextInput,
     TouchableOpacity,
-    FlatList,
 } 
 from 'react-native';
-import {Fab, Icon} from 'native-base';
 import axios from 'axios';
-//import { Actions } from 'react-native-mobx/index';
 import {NavigationName} from '../constants';
-// import {Card} from 'react-native-paper';
-// import {best_url} from './database/path_url';
 
 class HappyDiaryPage extends Component {
     constructor(props) {
@@ -31,12 +25,9 @@ class HappyDiaryPage extends Component {
     }
 
     fetchDataFromApi = ()  => {
-        console.log("i'm in fetch")
-        const url='http://d0fd5b5e7caf.ngrok.io/mystory/?type_h=True' 
+        const url='http://3afb1367df48.ngrok.io/mystory/?type_h=True' 
         axios.get(`${url}`, {})
         .then(res => {
-            console.log("in res")
-            console.log(res.data['status']);
             this.setState({
                 data: res.data['data'],
                 error: null,
@@ -60,18 +51,8 @@ class HappyDiaryPage extends Component {
         );
     };
 
-    // renderData = (item) => {
-    //     return(
-    //         <Card>
-    //             <Text>{item.title}</Text>
-    //             <Text>{item.detail}</Text>
-    //         </Card>
-    //     )
-    // };
-
     get_onestory = (id) => {
-        const url='http://d0fd5b5e7caf.ngrok.io/onestory/?id=' + id 
-        console.log(url)
+        const url='http://3afb1367df48.ngrok.io/onestory/?id=' + id 
         axios.get(`${url}`, {})
         .then(res => {
             this.props.navigation.navigate(NavigationName.DetailPage, {item:res.data['data'],own:'true',page:'HappyDiaryPage'});
@@ -82,7 +63,6 @@ class HappyDiaryPage extends Component {
     };
 
     render() {
-        // const {refresh} = this.props.route.params;
         return (
             <View style={styles.container}>
                 <Text>HappyDiaryPage</Text>

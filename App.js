@@ -11,7 +11,6 @@ export default class App extends React.Component {
     render() {
         console.disableYellowBox = true;
         console.ignoredYellowBox = true;
-        //console.log(store.getState());
         return (
             <Provider store={store}>
                 <Main />

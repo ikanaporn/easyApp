@@ -2,14 +2,11 @@ import React,{ Component } from 'react';
 import { StyleSheet, 
     Text, 
     View, 
-    TextInput,
     TouchableOpacity,
-        Alert
+    Alert
 } 
 from 'react-native';
-import {Fab, Icon} from 'native-base';
 import axios from 'axios';
-//import { Actions } from 'react-native-mobx/index';
 import {NavigationName} from '../constants';
 
 
@@ -48,9 +45,7 @@ class DetailPage extends Component {
             formBody.push(encodedKey + "=" + encodedValue);
         }
         formBody = formBody.join("&");
-        const url='http://d0fd5b5e7caf.ngrok.io/mystory/?' + formBody
-        console.log(url)
-        console.log(formBody)
+        const url='http://3afb1367df48.ngrok.io/mystory/?' + formBody
         axios.delete(`${url}`, {
             headers: {
                 'content-type': 'application/x-www-form-urlencoded;charset-UTF-8'
@@ -127,7 +122,6 @@ class DetailPage extends Component {
     render() {
         const {item,own,page} = this.props.route.params;
         this.check(item);
-        console.log(page)
         return (
              <View style={styles.container}>
                 <Text>DetailPage</Text>

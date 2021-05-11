@@ -4,7 +4,6 @@ import { StyleSheet,
     View, 
     TextInput,
     TouchableOpacity,
-    Image, 
     Alert
 } 
 from 'react-native';
@@ -20,7 +19,6 @@ class RegisterPage extends Component {
     }
 
     user_register = () => {
-        console.log(this.state)
         let details = {
             'email' : this.state.email,
             'username' : this.state.username,
@@ -34,14 +32,14 @@ class RegisterPage extends Component {
             formBody.push(encodedKey + "=" + encodedValue);
         }
         formBody = formBody.join("&");
-        const url='http://d0fd5b5e7caf.ngrok.io/register/' 
+        const url='http://3afb1367df48.ngrok.io/register/' 
         axios.post(`${url}`, formBody, {
             headers: {
                 'content-type': 'application/x-www-form-urlencoded;charset-UTF-8'
             }
         }).then(res => {
             if (res.data['register']) {
-                Alert.alert(res.data['description']);
+                Alert.alert(res.data['description'])
                 this.props.navigation.navigate(NavigationName.LoginPage);
             }
             else {

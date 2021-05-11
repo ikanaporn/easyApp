@@ -2,14 +2,9 @@ import React,{ Component } from 'react';
 import { StyleSheet, 
     Text, 
     View, 
-    TextInput,
     TouchableOpacity,
-    Image 
 } 
 from 'react-native';
-import {Fab, Icon} from 'native-base';
-
-//import { Actions } from 'react-native-mobx/index';
 import {NavigationName} from '../constants';
 
 
@@ -28,15 +23,6 @@ class HomePage extends Component {
         return (
              <View style={styles.container}>
                  <Text>HomePage</Text>
-                    {/* <Fab
-                        direction="up"
-                        containerStyle={{}}
-                        style={{ backgroundColor: '#fa8072' }}
-                        position="bottomRight"
-                        //onPress={onPress}
-                    >
-                        <Icon name="add" />
-                    </Fab> */}
                 <TouchableOpacity
                     onPress={() => {
                         this.props.navigation.navigate(NavigationName.RegisterPage, {});

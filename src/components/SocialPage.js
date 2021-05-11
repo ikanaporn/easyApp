@@ -2,14 +2,10 @@ import React,{ Component } from 'react';
 import { StyleSheet, 
     Text, 
     View, 
-    TextInput,
     TouchableOpacity,
-    Image 
 } 
 from 'react-native';
-import {Fab, Icon} from 'native-base';
 
-//import { Actions } from 'react-native-mobx/index';
 import {NavigationName} from '../constants';
 
 

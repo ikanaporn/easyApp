@@ -10,7 +10,6 @@ import { StyleSheet,
 from 'react-native';
 import axios from 'axios';
 import {NavigationName} from '../constants';
-// import {best_url} from 'url/path_url';
 
 class LoginPage extends Component {
     constructor(props) {
@@ -21,7 +20,6 @@ class LoginPage extends Component {
         password:""
     }
     user_login = () => {
-        console.log(this.state)
         let details = {
             'username' : this.state.username,
             'password' : this.state.password,
@@ -33,7 +31,7 @@ class LoginPage extends Component {
             formBody.push(encodedKey + "=" + encodedValue);
         }
         formBody = formBody.join("&");
-        const url= 'http://d0fd5b5e7caf.ngrok.io/login/' 
+        const url= 'http://3afb1367df48.ngrok.io/login/' 
         axios.post(`${url}`, formBody, {
             headers: {
                 'content-type': 'application/x-www-form-urlencoded;charset-UTF-8'
@@ -81,9 +79,6 @@ class LoginPage extends Component {
                         onChangeText={text => this.setState({password:text})}
                     />
                 </View>
-                {/* <TouchableOpacity>
-                    <Text style={styles.forgot}>Forgot Password ?</Text>
-                </TouchableOpacity> */}
             
                 <TouchableOpacity style={styles.loginBtn}
                     onPress={() => {
@@ -93,15 +88,6 @@ class LoginPage extends Component {
                     <Text style={styles.loginText}>LOGIN</Text>
                     
                 </TouchableOpacity>
-
-                {/* <TouchableOpacity
-                    onPress={() => {
-                        this.props.navigation.navigate(NavigationName.HomePage, {
-                        });
-                    }}
-                >
-                    <Text style={styles.signInText}>Signup</Text>
-                </TouchableOpacity> */}
              </View>
         );
     }

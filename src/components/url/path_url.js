@@ -1,3 +1,3 @@
-var best_url = 'http://d0fd5b5e7caf.ngrok.io/';
+var best_url = 'http://3afb1367df48.ngrok.io/';
 
 export {best_url};

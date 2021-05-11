@@ -2,14 +2,10 @@ import React,{ Component } from 'react';
 import { StyleSheet, 
     Text, 
     View, 
-    TextInput,
     TouchableOpacity,
-    Image 
 } 
 from 'react-native';
-import {Fab, Icon} from 'native-base';
 import axios from 'axios';
-//import { Actions } from 'react-native-mobx/index';
 import {NavigationName} from '../constants';
 
 
@@ -24,9 +20,7 @@ class FirstPage extends Component {
     }
 
     user_logout = () => {
-        // this.state.token = tk
-        // console.log(this.state.token)
-        const url='http://d0fd5b5e7caf.ngrok.io/logout/' 
+        const url='http://3afb1367df48.ngrok.io/logout/' 
         axios.post(`${url}`,{
             headers: {
                 'content-type': 'application/x-www-form-urlencoded;charset-UTF-8',
@@ -34,7 +28,6 @@ class FirstPage extends Component {
         }).then(res => {
             if (res.data['status']) {
                 this.props.navigation.navigate(NavigationName.HomePage);
-                // Alert.alert(res.data['description']);
             }
             else {
                 Alert.alert(res.data['description']);

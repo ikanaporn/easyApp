@@ -4,13 +4,10 @@ import { StyleSheet,
     View, 
     TextInput,
     TouchableOpacity,
-    Image, 
     Alert
 } 
 from 'react-native';
-import {Fab, Icon} from 'native-base';
 import axios from 'axios';
-//import { Actions } from 'react-native-mobx/index';
 import {NavigationName} from '../constants';
 
 
@@ -26,9 +23,8 @@ class SettingPage extends Component {
         }
     }
     get_user = () => {
-        const url= 'http://d0fd5b5e7caf.ngrok.io/profile/' 
+        const url= 'http://3afb1367df48.ngrok.io/profile/' 
         axios.get(`${url}`, {}).then(res => {
-            console.log(res.data['user'])
             if (res.data['status']) {
                 this.setState({
                     username : res.data['user'],
@@ -36,7 +32,6 @@ class SettingPage extends Component {
                     set : true,
                 });
             }
-            console.log(this.state)
         })
     }
 
@@ -45,8 +40,7 @@ class SettingPage extends Component {
     }
 
     set_user = () => {
-        const url= 'http://d0fd5b5e7caf.ngrok.io/profile/' 
-        console.log(this.state)
+        const url= 'http://3afb1367df48.ngrok.io/profile/' 
         let details = {
             'username' : this.state.username,
             'email' : this.state.email,

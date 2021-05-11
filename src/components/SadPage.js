@@ -2,13 +2,10 @@ import React,{ Component } from 'react';
 import { StyleSheet, 
     Text, 
     View, 
-    TextInput,
     TouchableOpacity,
-    Image 
 } 
 from 'react-native';
 import axios from 'axios';
-//import { Actions } from 'react-native-mobx/index';
 import {NavigationName} from '../constants';
 
 
@@ -30,11 +27,9 @@ class SadPage extends Component {
     }
 
     fetchDataFromApi = ()  => {
-        console.log("i'm in fetch")
-        const url='http://d0fd5b5e7caf.ngrok.io/getallstory/?type_h=False&status_p=False' 
+        const url='http://3afb1367df48.ngrok.io/getallstory/?type_h=False&status_p=False' 
         axios.get(`${url}`, {})
         .then(res => {
-            console.log("in res")
             this.setState({
                 data: res.data['data'],
                 error: null,
@@ -59,11 +54,9 @@ class SadPage extends Component {
     };
 
     get_onestory = (id) => {
-        const url='http://d0fd5b5e7caf.ngrok.io/onestory/?id=' + id 
-        console.log(url)
+        const url='http://3afb1367df48.ngrok.io/onestory/?id=' + id 
         axios.get(`${url}`, {})
         .then(res => {
-            console.log(res.data['data'])
             this.props.navigation.navigate(NavigationName.DetailPage, {item:res.data['data'],own:'false',page:'SadPage'});
         }) 
         .catch(error => {
