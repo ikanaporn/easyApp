@@ -63,36 +63,7 @@ class HappyPage extends Component {
         this.setState({ error, loading : false });
         })    
     };
-
-    render() {
-        
-        return (
-             <View style={styles.container}>
-                <Text>HappyPage</Text>
-                <TouchableOpacity style={styles.loginBtn}
-                    onPress={() => {
-                        this.props.navigation.navigate(NavigationName.SocialPage, {});
-                    }}
-                >
-                    <Text style={styles.loginText}>BACK</Text>
-                </TouchableOpacity>
-                {this.state.data.map((item) => {
-                    return (
-                        <View>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    this.get_onestory(item.id)
-                                }}
-                            >
-                                <Text style={styles.signInText}>{item.title}</Text>
-                            </TouchableOpacity>
-                        </View>
-                    )
-                })}
-             </View>
-        );
-    }
-
+    
     render() {
         
         return (

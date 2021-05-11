@@ -15,12 +15,13 @@ class AddDiaryPage extends Component {
     state = {
         title : "",
         details : "",
-        isPrivate : false,
+        isPrivate : true,
         isPublic : false,
-        status_p: 'true',
+        status_p: 'True',
     }
 
     changeStatusShared = (choice) => {
+        console.log(choice)
         if (choice == 1) {
             this.setState({
                 isPrivate: true,
@@ -34,6 +35,7 @@ class AddDiaryPage extends Component {
                 status_p: 'False',
             })
         }
+        console.log(this.state.status_p)
     }
     
     constructor(props){
@@ -47,6 +49,7 @@ class AddDiaryPage extends Component {
             'detail' : this.state.details,
             'status_p' : this.state.status_p,
         };
+        console.log(data)
         let formBody = [];
         for (let property in data) {
             let encodedKey = encodeURIComponent(property);
@@ -94,15 +97,6 @@ class AddDiaryPage extends Component {
                     }}
                 >
                     <Text style={styles.loginText}>BACK</Text>
-
-                {/* <Picker
-                    style={{width:'100%'}}
-                    selectedValue={this.state.status_p}
-                    onValueChange={(itemValue,itemIndex) => this.setState({status_p:itemValue})}
-                >
-                    <Picker.Item label="Private" value="True"/>
-                    <Picker.Item label="Public" value="False"/>
-                </Picker> */}
 
                 </TouchableOpacity>
                 <View style={styles.inputView} >
