@@ -4,12 +4,13 @@ import { StyleSheet,
     View, 
     TextInput,
     TouchableOpacity,
-    Alert
+    Alert,
+    ImageBackground
 } 
 from 'react-native';
 import axios from 'axios';
 import {NavigationName} from '../constants';
-
+import { Container } from 'native-base';
 class RegisterPage extends Component {
     state = {
         email: "",
@@ -52,52 +53,55 @@ class RegisterPage extends Component {
     render() {
         
         return (
-             <View style={styles.container}>
-                <View style={styles.inputView} >
-                    <TextInput  
-                        
-                        style={styles.inputText}
-                        placeholder="email" 
-                        placeholderTextColor="#D5D8DC "
-                        onChangeText={text => this.setState({email:text})}
-                    />
-                </View>
-                <View style={styles.inputView} >
-                    <TextInput  
-                        style={styles.inputText}
-                        placeholder="username" 
-                        placeholderTextColor="#D5D8DC "
-                        onChangeText={text => this.setState({username:text})}
-                    />
-                </View>
-                <View style={styles.inputView} >
-                    <TextInput  
-                        style={styles.inputText}
-                        placeholder="password" 
-                        placeholderTextColor="#D5D8DC "
-                        secureTextEntry={true}
-                        onChangeText={text => this.setState({password:text})}
-                    />
-                </View>
-                <View style={styles.inputView} >
-                    <TextInput  
-                        style={styles.inputText}
-                        placeholder="confirm password" 
-                        placeholderTextColor="#D5D8DC "
-                        secureTextEntry={true}
-                        onChangeText={text => this.setState({con_password:text})}
-                    />
-                </View>
-            
-                <TouchableOpacity style={styles.loginBtn}
-                    onPress={() => {
-                        this.user_register()
-                    }}
-                >
-                    <Text style={styles.loginText}>SIGN UP</Text>
-                    
-                </TouchableOpacity>
-             </View>
+            <View style={styles.container}>
+                <ImageBackground style= { styles.backgroundImage } source={require("../../assets/img/signup.png")} >
+                    <Container style={styles.signupField} >
+                        <View style={styles.inputView} >
+                            <TextInput  
+                                style={styles.inputText}
+                                placeholder="email" 
+                                placeholderTextColor="#d5d8dc"
+                                onChangeText={text => this.setState({email:text})}
+                            />
+                        </View>
+                        <View style={styles.inputView} >
+                            <TextInput  
+                                style={styles.inputText}
+                                placeholder="username" 
+                                placeholderTextColor="#d5d8dc"
+                                onChangeText={text => this.setState({username:text})}
+                            />
+                        </View>
+                        <View style={styles.inputView} >
+                            <TextInput  
+                                style={styles.inputText}
+                                placeholder="password" 
+                                placeholderTextColor="#d5d8dc"
+                                secureTextEntry={true}
+                                onChangeText={text => this.setState({password:text})}
+                            />
+                        </View>
+                        <View style={styles.inputView} >
+                            <TextInput  
+                                style={styles.inputText}
+                                placeholder="confirm password" 
+                                placeholderTextColor="#d5d8dc"
+                                secureTextEntry={true}
+                                onChangeText={text => this.setState({con_password:text})}
+                            />
+                        </View>
+
+                        <TouchableOpacity style={styles.loginBtn}
+                            onPress={() => {
+                                this.user_register()
+                            }}
+                        >
+                            <Text style={styles.signupText}>SIGN UP</Text>
+                            
+                        </TouchableOpacity>
+                    </Container>
+                </ImageBackground>
+            </View>
         );
     }
 }
@@ -109,53 +113,59 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    logo:{
-        fontWeight:"bold",
-        fontSize:50,
-        color:"#79a3b1",
-        marginBottom:40,
-        justifyContent: 'center'
-
-    },
+    
     inputView:{
-        width:"80%",
+        width:"70%",
         backgroundColor:"#fff",
         borderRadius:25,
         height:50,
-        marginBottom:20,
+        marginBottom:10,
         justifyContent:"center",
+        marginTop: 5,
         padding:20,
     
         
     },
     inputText:{
         height:50,
-        color:"#456268"
+        color:"#456268",
+        
     },
-    loginText: {
-        fontWeight:"bold",
-        fontSize: 15,
-        color: '#ffff',
+    signupText: {
+        fontSize: 18,
+        color: '#797575',
     },
-    signInText: {
-        fontWeight:"bold",
-        fontSize: 15,
-        color: '#fa8072',
-    },
+    
     forgot:{
         color:"#fa8072",
         fontSize:14
     },
     loginBtn:{
-        width:"80%",
-        backgroundColor:"#fa8072",
+        width:"70%",
+        backgroundColor:"#F8CC5C",
         borderRadius:25,
         height:50,
         alignItems:"center",
         justifyContent:"center",
-        marginTop:40,
+        marginTop:20,
         marginBottom:10
     },
+    backgroundImage:{
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+    },
+    signupField:{
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        backgroundColor: 'transparent',
+        marginBottom: 60
+    }
 })
 
 export default RegisterPage

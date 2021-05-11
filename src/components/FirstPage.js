@@ -3,6 +3,7 @@ import { StyleSheet,
     Text, 
     View, 
     TouchableOpacity,
+    ImageBackground,
 } 
 from 'react-native';
 import axios from 'axios';
@@ -36,44 +37,48 @@ class FirstPage extends Component {
     }
     render() {
         return (
-             <View style={styles.container}>
-                <Text>FirstPage</Text>
-                <TouchableOpacity style={styles.loginBtn}
-                    onPress={() => {
-                        this.props.navigation.navigate(NavigationName.HappyDiaryPage, {refresh:'False'});
-                    }}
-                >
-                    <Text style={styles.loginText}>HAPPY DIARY</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.loginBtn}
-                    onPress={() => {
-                        this.props.navigation.navigate(NavigationName.SadDiaryPage, {refresh:'False'});
-                    }}
-                >
-                    <Text style={styles.loginText}>SAD DIARY</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.loginBtn}
-                    onPress={() => {
-                        this.props.navigation.navigate(NavigationName.SocialPage, {});
-                    }}
-                >
-                    <Text style={styles.loginText}>SOCIAL SHARING</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.loginBtn}
-                    onPress={() => {
-                        this.props.navigation.navigate(NavigationName.SettingPage, {});
-                    }}
-                >
-                    <Text style={styles.loginText}>SETTING</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.loginBtn}
-                    onPress={() => {
-                        this.user_logout()
-                    }}
-                >
-                    <Text style={styles.loginText}>LOGOUT</Text>
-                </TouchableOpacity>
-             </View>
+            <View style={styles.container}>
+                <ImageBackground style= { styles.backgroundImage } source={require("../../assets/img/bg.jpg")} >
+                    <Text style={styles.textHeader} >BOTAN</Text>
+                    <View style={styles.menuContainer}>
+                        <TouchableOpacity style={styles.menuBtn}
+                            onPress={() => {
+                                this.props.navigation.navigate(NavigationName.HappyDiaryPage, {refresh:'False'});
+                            }}
+                        >
+                            <Text style={styles.happyText}>HAPPY DIARY</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.menuBtn}
+                            onPress={() => {
+                                this.props.navigation.navigate(NavigationName.SadDiaryPage, {refresh:'False'});
+                            }}
+                        >
+                            <Text style={styles.sadText}>SAD DIARY</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.menuBtn}
+                            onPress={() => {
+                                this.props.navigation.navigate(NavigationName.SocialPage, {});
+                            }}
+                        >
+                            <Text style={styles.ssText}>SOCIAL SHARING</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.menuBtn}
+                            onPress={() => {
+                                this.props.navigation.navigate(NavigationName.SettingPage, {});
+                            }}
+                        >
+                            <Text style={styles.settingText}>SETTING</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.menuBtn}
+                            onPress={() => {
+                                this.user_logout()
+                            }}
+                        >
+                            <Text style={styles.logoutText}>LOGOUT</Text>
+                        </TouchableOpacity>     
+                    </View>    
+                </ImageBackground>
+            </View>
         );
     }
 }
@@ -85,34 +90,63 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    backgroundImage:{
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+    },
+    textHeader:{
+        flex: 1,
+        width: '100%',
+        justifyContent: 'flex-start',
+        textAlign: 'center',
+        fontSize: 24,
+        paddingTop: 30,
+        backgroundColor: "#fa8072",
+        color:"#ffffff"
+    },
     
-    inputText:{
-        height:50,
-        color:"#456268"
+    happyText: {
+        fontSize: 18,
+        color: '#FFB603',
     },
-    loginText: {
-        fontWeight:"bold",
-        fontSize: 15,
-        color: '#ffff',
+    sadText: {
+        fontSize: 18,
+        color: '#0063AA',
     },
-    signInText: {
-        fontWeight:"bold",
-        fontSize: 15,
-        color: '#79a3b1',
+    ssText: {
+        fontSize: 18,
+        color: '#2FA16B',
     },
-    forgot:{
-        color:"#456268",
-        fontSize:14
+    settingText: {
+        fontSize: 18,
+        color: '#0063AA',
     },
-    loginBtn:{
-        width:"80%",
-        backgroundColor:"#fa8072",
+    logoutText: {
+        fontSize: 18,
+        color: '#F9404B',
+    },
+    menuContainer:{
+        width:"70%",
         borderRadius:25,
-        height:50,
-        alignItems:"center",
         justifyContent:"center",
+        alignItems:"center",
         marginTop:40,
-        marginBottom:10
+        marginBottom:30
+    },
+    menuBtn:{
+        width:"70%",
+        backgroundColor:"#f4f4f4",
+        borderColor: "#fa8072",
+        borderWidth: 1,
+        borderRadius:20,
+        height:50,
+        justifyContent:"center",
+        alignItems:"center",
+        marginTop:10,
+        marginBottom:40
     },
 })
 

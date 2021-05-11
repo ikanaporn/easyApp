@@ -4,8 +4,8 @@ import { StyleSheet,
     View, 
     TextInput,
     TouchableOpacity,
-    Image, 
-    Alert
+    ImageBackground, 
+    Alert,
 } 
 from 'react-native';
 import axios from 'axios';
@@ -49,46 +49,37 @@ class LoginPage extends Component {
     render() {
         
         return (
-             <View style={styles.container}>
-                <View style={{justifyContent: 'center',alignItems: 'center', marginBottom : 50 }}>
-                    <Image
-                        source={require("../../assets/img/logo.jpg")}
-                        resizeMode="contain"
-                        style={{ 
-                            width: 100,
-                            height: 100, 
-                            borderRadius: 90,
+            <View style={styles.container}>
+                <ImageBackground style= { styles.backgroundImage } source={require("../../assets/img/login.png")} >
+                    <View style={styles.inputView} >
+                        <TextInput  
+                            
+                            style={styles.inputText}
+                            placeholder="Username" 
+                            placeholderTextColor="#d5d8dc"
+                            onChangeText={text => this.setState({username:text})}
+                        />
+                    </View>
+                    <View style={styles.inputView} >
+                        <TextInput  
+                            style={styles.inputText}
+                            placeholder="Password..." 
+                            placeholderTextColor="#d5d8dc"
+                            secureTextEntry={true}
+                            onChangeText={text => this.setState({password:text})}
+                        />
+                    </View>
+                
+                    <TouchableOpacity style={styles.loginBtn}
+                        onPress={() => {
+                            this.user_login()
                         }}
-                    />
-                </View>
-                <View style={styles.inputView} >
-                    <TextInput  
+                    >
+                        <Text style={styles.loginText}>LOGIN</Text>
                         
-                        style={styles.inputText}
-                        placeholder="Username" 
-                        placeholderTextColor="#D5D8DC "
-                        onChangeText={text => this.setState({username:text})}
-                    />
-                </View>
-                <View style={styles.inputView} >
-                    <TextInput  
-                        style={styles.inputText}
-                        placeholder="Password..." 
-                        placeholderTextColor="#D5D8DC "
-                        secureTextEntry={true}
-                        onChangeText={text => this.setState({password:text})}
-                    />
-                </View>
-            
-                <TouchableOpacity style={styles.loginBtn}
-                    onPress={() => {
-                        this.user_login()
-                    }}
-                >
-                    <Text style={styles.loginText}>LOGIN</Text>
-                    
-                </TouchableOpacity>
-             </View>
+                    </TouchableOpacity>
+                </ImageBackground>
+            </View>
         );
     }
 }
@@ -100,52 +91,43 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    logo:{
-        fontWeight:"bold",
-        fontSize:50,
-        color:"#79a3b1",
-        marginBottom:40,
-        justifyContent: 'center'
-
+    backgroundImage:{
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
     },
     inputView:{
-        width:"80%",
+        width:"70%",
         backgroundColor:"#fff",
         borderRadius:25,
         height:50,
         marginBottom:20,
         justifyContent:"center",
         padding:20,
-    
-        
     },
     inputText:{
         height:50,
         color:"#456268"
     },
     loginText: {
-        fontWeight:"bold",
-        fontSize: 15,
-        color: '#ffff',
-    },
-    signInText: {
-        fontWeight:"bold",
-        fontSize: 15,
-        color: '#fa8072',
+        fontSize: 18,
+        color: '#797575',
     },
     forgot:{
         color:"#fa8072",
         fontSize:14
     },
     loginBtn:{
-        width:"80%",
-        backgroundColor:"#fa8072",
+        width:"70%",
+        backgroundColor:"#F8CC5C",
         borderRadius:25,
         height:50,
         alignItems:"center",
         justifyContent:"center",
-        marginTop:40,
-        marginBottom:10
+        marginTop:20,
+        marginBottom:60
     },
 })
 

@@ -103,7 +103,7 @@ class AddDiaryPage extends Component {
                     <TextInput  
                         style={styles.inputText}
                         placeholder="Title" 
-                        placeholderTextColor="#D5D8DC "
+                        placeholderTextColor="#d5d8dc"
                         onChangeText={text => this.setState({title:text})}
                     />
                 </View>
@@ -111,7 +111,7 @@ class AddDiaryPage extends Component {
                     <TextInput  
                         style={styles.inputText}
                         placeholder="Detail" 
-                        placeholderTextColor="#D5D8DC "
+                        placeholderTextColor="#d5d8dc"
                         onChangeText={text => this.setState({details:text})}
                     />
                 </View>

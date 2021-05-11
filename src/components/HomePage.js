@@ -3,6 +3,7 @@ import { StyleSheet,
     Text, 
     View, 
     TouchableOpacity,
+    ImageBackground,
 } 
 from 'react-native';
 import {NavigationName} from '../constants';
@@ -34,23 +35,24 @@ class HomePage extends Component {
        
         return (
            
-             <View style={styles.container}>
-                 <Text>HomePage</Text>
-                <TouchableOpacity
-                    onPress={() => {
-                        this.props.navigation.navigate(NavigationName.RegisterPage, {});
-                    }}
-                >
-                    <Text style={styles.signInText}>SIGN UP</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => {
-                        this.props.navigation.navigate(NavigationName.LoginPage, {});
-                    }}
-                >
-                    <Text style={styles.signInText}>LOGIN</Text>
-                </TouchableOpacity>
-             </View>
+            <View style={styles.container}>
+                <ImageBackground style= { styles.backgroundImage } source={require("../../assets/img/B.jpg")} >
+                    <TouchableOpacity style={styles.signupBtn}
+                        onPress={() => {
+                            this.props.navigation.navigate(NavigationName.RegisterPage, {});
+                        }}
+                    >
+                        <Text style={styles.signupText}>SIGN UP</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.loginBtn}
+                        onPress={() => {
+                            this.props.navigation.navigate(NavigationName.LoginPage, {});
+                        }}
+                    >
+                        <Text style={styles.loginText}>LOGIN</Text>
+                    </TouchableOpacity>
+                </ImageBackground>
+            </View>
         );
     }
 }
@@ -63,23 +65,44 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     
-    inputText:{
-        height:50,
-        color:"#456268"
+    signupText: {
+        fontSize: 15,
+        color: '#fa8072',
+        marginTop: 15,
     },
     loginText: {
-        fontWeight:"bold",
         fontSize: 15,
-        color: '#ffff',
-    },
-    signInText: {
-        fontWeight:"bold",
-        fontSize: 15,
-        color: '#79a3b1',
+        color: '#ffffff',
+        marginTop: 15,
     },
     forgot:{
         color:"#456268",
         fontSize:14
+    },
+    backgroundImage:{
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    signupBtn:{
+        width:"50%",
+        backgroundColor:"#f4f4f4",
+        borderColor: "#fa8072",
+        borderWidth: 1,
+        borderRadius:25,
+        height:50,
+        alignItems:"center",
+        marginTop:400,
+    },
+    loginBtn:{
+        width:"50%",
+        backgroundColor:"#fa8072",
+        borderRadius:25,
+        height:50,
+        alignItems:"center",
+        marginTop:20,
     },
     
 })
